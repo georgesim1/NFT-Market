@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NFTController;
@@ -25,11 +26,26 @@ Route::redirect('/', '/login');
 
 // route::get('/home' , [HomeController::class, 'index'])->middleware('auth')->name('home');
 
+// Route::get('/', function () {
+//     return view('gallery');
+// });
+
 Route::get('/home', [HomeController::class, 'index'])->middleware(['auth'])->name('home'); //controller that handles the user route to log in to the dashboard
 
 Route::get('/admin/home', [HomeController::class, 'users'])->middleware(['auth', 'admin'])->name('admin.home'); //controller that handles the admin route to log in to the dashboard
 
-Route::get('/gallery', [NFTController::class, 'index']);
+Route::get('/', [NFTController::class, 'index']);
+
+Route::get('nft/{index}', function ($index) {
+    $nftJsonPath = base_path('/public/nft.json'); // Adjust the path to your nft.json file
+    $nftJsonContent = File::get($nftJsonPath);
+    $nfts = json_decode($nftJsonContent, true);
+    $nft = $nfts[$index] ?? null;
+    if (!$nft) {
+        abort(404);
+    }
+    return view('nft', ['nft' => $nft]);
+})->name('nft.show');
 
 route::get('post', [HomeController::class, 'post'])->middleware(['auth','admin']);
 
