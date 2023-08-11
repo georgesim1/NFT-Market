@@ -30,25 +30,31 @@ Route::redirect('/', '/login');
 //     return view('gallery');
 // });
 
-Route::get('/home', [HomeController::class, 'index'])->middleware(['auth'])->name('home'); //controller that handles the user route to log in to the dashboard
+Route::get('/admin', [HomeController::class, 'index'])->middleware(['auth', 'admin'])->name('home'); //controller that handles the user route to log in to the dashboard
+
+Route::get('/home', [HomeController::class, 'index'])->middleware(['auth'])->name('home');
 
 Route::get('/admin/home', [HomeController::class, 'users'])->middleware(['auth', 'admin'])->name('admin.home'); //controller that handles the admin route to log in to the dashboard
 
 Route::get('/', [NFTController::class, 'index']);
 
+Route::post('nft/{index}/purchase', [NFTController::class, 'buy'])->name('nft.purchase');
+
 Route::get('nft/{index}', function ($index) {
-    $nftJsonPath = base_path('/public/nft.json'); // Adjust the path to your nft.json file
+    $nftJsonPath = base_path('/public/nft.json');
     $nftJsonContent = File::get($nftJsonPath);
     $nfts = json_decode($nftJsonContent, true);
     $nft = $nfts[$index] ?? null;
     if (!$nft) {
         abort(404);
     }
-    return view('nft', ['nft' => $nft]);
+    return view('nft', ['nft' => $nft, 'index' => $index]); // Pass index here
 })->name('nft.show');
 
-route::get('post', [HomeController::class, 'post'])->middleware(['auth','admin']);
+Route::get('/collection', [NFTController::class, 'myNfts'])->name('collection')->middleware('auth');
 
+Route::get('/create', [NFTController::class, 'create'])->name('nft.create');
+Route::post('/nft/store', [NFTController::class, 'store'])->name('nft.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

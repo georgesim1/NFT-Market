@@ -14,9 +14,29 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Olivia',
+            'email' => 'admin@admin.com',
+            'usertype' => 'admin',
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'George',
+            'email' => 'example@example.com',
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Bob',
+            'email' => 'test2@example.com',
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Joseph',
+            'email' => 'test3@example.com',
+        ]);
+        \App\Models\User::factory()->create([
+            'name' => 'Michael',
+            'email' => 'test4@example.com',
+        ]);
+        $this->call([
+            NftSeeder::class,
+        ]);
     }
 }

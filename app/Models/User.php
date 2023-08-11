@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'eth_balance',
     ];
 
     /**
@@ -42,4 +43,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+     // Relationship to NFT
+     public function nfts()
+     {
+         return $this->hasMany(NFT::class, 'owner_id');
+     }
 }

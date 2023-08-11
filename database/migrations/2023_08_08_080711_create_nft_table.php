@@ -13,16 +13,18 @@ return new class extends Migration
     {
         Schema::create('nft', function (Blueprint $table) {
             $table->id();
-            $table->string('titre', 100);
+            $table->string('titre');
             $table->string('artiste');
-            $table->string('proprietaire');
-            $table->string('description', 255)->nullable();
-            $table->string('adresse_du_contrat');
+            // $table->string('proprietaire')->nullable(); // This line was changed
+            $table->text('description')->nullable();
+            $table->string('adresse_du_contrat')->nullable();
             $table->enum('token_standard', ['ERC-721', 'ERC-1155', 'ERC-998']);
-            $table->decimal('prix', 10, 5); // Adjust scale and precision as needed for ETH
+            $table->decimal('prix', 10, 5)->default(1); // Adjust scale and precision as needed for ETH
             $table->string('image')->nullable();
             $table->enum('categorie', ['collectible', 'metaverse', 'utilitaire', 'jeux vidéo online']);
             $table->timestamps();
+            $table->unsignedBigInteger('owner_id')->nullable();
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 

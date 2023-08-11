@@ -5,7 +5,7 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('home') }}">
+                    <a href="{{ url('/') }}">
                         <x-application-logo class="block w-10 h-10 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
@@ -21,6 +21,20 @@
                             {{ __('Log In') }}
                         </x-nav-link>
                     @endauth
+                </div>
+                @if(Auth::check())
+                <x-nav-link :href="route('collection')" :active="request()->routeIs('collection')">
+                    {{ __('Collection') }}
+                </x-nav-link>
+                 @endif
+                 @if(Auth::check() && Auth::user()->usertype == 'admin')
+                 <x-nav-link :href="route('nft.create')" :active="request()->routeIs('nft.create')">
+                     {{ __('Create New NFT') }}
+                 </x-nav-link>
+                 @endif
+                <div class="inline-flex items-center text-white pl-5">
+                    <svg class="w-4 h-4 mr-2 -ml-1 text-[#626890]" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="ethereum" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="white" d="M311.9 260.8L160 353.6 8 260.8 160 0l151.9 260.8zM160 383.4L8 290.6 160 512l152-221.4-152 92.8z"></path></svg>
+                    ETH Balance: {{$ethBalance}}
                 </div>
             </div>
 

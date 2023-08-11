@@ -4,7 +4,7 @@
             {{ __('Admin Dashboard') }}
         </h2>
     </x-slot>
-
+    @section('content') 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
@@ -15,26 +15,28 @@
         </div>
     </div>
 
- <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-    <h1 class="pt-6 text-gray-900 dark:text-gray-100">All Users</h1>
-    <table class="text-gray-900 dark:text-gray-100">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <!-- Add other fields as needed -->
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($users as $user)
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+        <h1 class="pt-6 text-gray-900 dark:text-gray-100">All Users</h1>
+        <table class="min-w-full bg-white text-gray-900 dark:text-gray-100">
+            <thead>
                 <tr>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
+                    <th class="px-6 py-3 border-b border-gray-200 text-left">Name</th>
+                    <th class="px-6 py-3 border-b border-gray-200 text-left">Email</th>
+                    <th class="px-6 py-3 border-b border-gray-200 text-left">ETH</th>
                     <!-- Add other fields as needed -->
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
- </div>
-    
+            </thead>
+            <tbody>
+                @foreach($users as $user)
+                    <tr>
+                        <td class="px-6 py-3 border-b border-gray-200">{{ $user->name }}</td>
+                        <td class="px-6 py-3 border-b border-gray-200">{{ $user->email }}</td>
+                        <td class="px-6 py-3 border-b border-gray-200">{{ $user->portfolio }}</td>
+                        <!-- Add other fields as needed -->
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    @endsection
 </x-app-layout>
