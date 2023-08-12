@@ -21,16 +21,6 @@ use App\Http\Controllers\NFTController;
 
 Route::redirect('/', '/login');
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-// route::get('/home' , [HomeController::class, 'index'])->middleware('auth')->name('home');
-
-// Route::get('/', function () {
-//     return view('gallery');
-// });
-
 Route::get('/admin', [HomeController::class, 'index'])->middleware(['auth', 'admin'])->name('home'); //controller that handles the user route to log in to the dashboard
 
 Route::get('/home', [HomeController::class, 'index'])->middleware(['auth'])->name('home');
