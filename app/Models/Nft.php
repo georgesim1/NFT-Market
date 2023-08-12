@@ -31,6 +31,7 @@ class Nft extends Model
         'prix',
         'image',
         'categorie',
+        'owner_id',
     ];
 
     /**

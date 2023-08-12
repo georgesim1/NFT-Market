@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Models\Nft;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
 
@@ -40,15 +41,15 @@ Route::get('/', [NFTController::class, 'index']);
 
 Route::post('nft/{index}/purchase', [NFTController::class, 'buy'])->name('nft.purchase');
 
+Route::post('nft/{index}/sell', [NFTController::class, 'sell'])->name('nft.sell');
+
 Route::get('nft/{index}', function ($index) {
-    $nftJsonPath = base_path('/public/nft.json');
-    $nftJsonContent = File::get($nftJsonPath);
-    $nfts = json_decode($nftJsonContent, true);
-    $nft = $nfts[$index] ?? null;
-    if (!$nft) {
+    try {
+        $nft = Nft::find($index)->toArray();
+        return view('nft', ['nft' => $nft, 'index' => $index]);
+    } catch (\Throwable $th) {
         abort(404);
     }
-    return view('nft', ['nft' => $nft, 'index' => $index]); // Pass index here
 })->name('nft.show');
 
 Route::get('/collection', [NFTController::class, 'myNfts'])->name('collection')->middleware('auth');

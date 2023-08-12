@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('titre');
             $table->string('artiste');
             // $table->string('proprietaire')->nullable(); // This line was changed
-            $table->text('description')->nullable();
+            $table->text('description');
             $table->string('adresse_du_contrat')->nullable();
             $table->enum('token_standard', ['ERC-721', 'ERC-1155', 'ERC-998']);
             $table->decimal('prix', 10, 5)->default(1); // Adjust scale and precision as needed for ETH

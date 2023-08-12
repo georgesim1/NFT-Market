@@ -7,27 +7,25 @@ use App\Models\Nft;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Facades\Storage;
 
 class NFTController extends Controller
 {
     public function index(Request $request)
     {
-        $json = file_get_contents(public_path('nft.json'));
-        $nfts = json_decode($json, true);
-
-        // Get unique categories
-        $categories = collect($nfts)->pluck('categorie')->unique()->values();
-
+        $query = Nft::query();
+    
         // Apply the category filter if it's set
         if ($request->has('category') && !empty($request->category)) {
-            $category = $request->category;
-            $nfts = array_filter($nfts, function ($nft) use ($category) {
-                return $nft['categorie'] === $category;
-            });
+            $query->where('categorie', $request->category);
         }
-
-        return view('/gallery', ['nfts' => $nfts, 'categories' => $categories]);
+    
+        $nfts = $query->get();
+    
+        // Get unique categories
+        $categories = Nft::distinct()->pluck('categorie')->all();
+    
+        return view('gallery', ['nfts' => $nfts, 'categories' => $categories]);
     }
 
     public function buy($id)
@@ -37,22 +35,49 @@ class NFTController extends Controller
         if (!$nft) {
             return redirect()->route('nft.show', $id)->withErrors('NFT not found.');
         }
-    
+
         $user = Auth::user();
-    
-        if ($user->ethBalance < $nft->prix) {
+       
+        if ($user->portfolio < $nft->prix) {
             return redirect()->route('nft.show', $id)->withErrors('You cannot purchase this NFT.');
         }
     
         // Deduct the ETH balance from the user
-        $user->ethBalance -= $nft->prix;
+        $user->portfolio -= $nft->prix;
         $user->save();
     
         // Update ownership details to the NFT
         $nft->owner_id = $user->id;
         $nft->save();
-    
+        
+        
         return redirect()->route('nft.show', $id)->withSuccess('Successfully purchased the NFT!');
+    }
+
+    public function sell($id)
+    {
+        $nft = Nft::find($id);
+    
+        if (!$nft) {
+            return redirect()->route('collection')->withErrors('NFT not found.');
+        }
+        
+        $user = Auth::user();
+       
+        if ($user->portfolio < $nft->prix) {
+            return redirect()->route('collection')->withErrors('You cannot purchase this NFT.');
+        }
+    
+        // Deduct the ETH balance from the user
+        $user->portfolio += $nft->prix;
+        $user->save();
+    
+        // Update ownership details to the NFT
+        $nft->owner_id = 1;
+        $nft->save();
+        
+        
+        return redirect()->route('collection')->withSuccess('Successfully purchased the NFT!');
     }
     public function myNfts()
     {
@@ -69,20 +94,31 @@ class NFTController extends Controller
 
 public function store(Request $request)
 {
-    $nft = new Nft([
-        'titre' => $request->get('titre'),
-        'artiste' => $request->get('artiste'),
+    $request->validate([
+        'titre' => 'required|string|max:255',
         'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        'description' => $request->get('description'),
-        'prix' => $request->get('prix'),
-        'categorie' => $request->get('categorie'),
-        //... other fields
+        'artiste' => 'required|string',
+        'description' => 'required|string',
+        'prix' => 'required|numeric',
+        'categorie' => 'required|string',
+        // Other validation rules
     ]);
-    
-    $imagePath = $request->file('image')->store('images/nft', 'public'); // You can customize the path
 
-    $nft = new NFT();
-    $nft->image = $imagePath;
+    // $imagePath = $request->file('image')->store('images', 'public'); 
+
+    $imagePath = Storage::disk('public')->putFile('images', $request->file('image'));
+    
+    // Creating the NFT
+    $nft = new Nft([
+        'titre' => $request->titre,
+        'artiste' => $request->artiste,
+        'image' => $imagePath,
+        'description' => $request->description,
+        'prix' => $request->prix,
+        'categorie' => $request->categorie,
+        'owner_id' => 1,
+    ]);
+
     $nft->save();
     
     return redirect()->route('collection')->with('success', 'NFT added to the collection');
