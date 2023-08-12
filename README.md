@@ -75,3 +75,12 @@ npm run dev
  ```
 php artisan serve
  ```
+
+<!-- CONTACT -->
+## Contact
+
+Your Name - Georgiy Simak
+
+Project Link: ([https://github.com/your_username/repo_name](https://github.com/georgesim1/Projet-2-NFT-Market/tree/master))
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
