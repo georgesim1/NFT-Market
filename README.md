@@ -15,11 +15,10 @@ NFT Market est une place de marché pour acheter et vendre des NFT.
 ### Étapes D'installation
 
 1. **Cloner le dépôt**
-   ```
-   git clone https://github.com/username/project-name.git
-   cd project-name
-    ```
-
+```
+git clone https://github.com/username/project-name.git
+cd project-name
+```
    
 2. Installer les dépendances
  ```
