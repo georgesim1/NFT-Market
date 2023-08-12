@@ -52,6 +52,10 @@ php artisan key:generate
 
 5. **Exécuter les migrations de la base de données**
  ```
+php artisan migrate 
+ ```
+5.1 **Exécuter la commande suivante pour seeder la base de données**
+ ```
 php artisan migrate --seed
  ```
 
