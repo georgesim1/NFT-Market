@@ -1,7 +1,14 @@
-* [![Angular][Angular.io]][Angular-url]
+[![Angular][Angular.io]][Angular-url]
+
 # NFT Market
 
 NFT Market est une place de marché pour acheter et vendre des NFT.
+
+## Coordonnées de l'administrateur
+```
+Email: admin@admin.com
+Password: password
+```
 
 ## Installation
 
