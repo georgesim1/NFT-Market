@@ -1,18 +1,17 @@
-# Nom du Projet
+# NFT Market
 
-[Description du projet]
-
-## Table des Matières
-
-[...]
+NFT Market est une place de marché pour acheter et vendre des NFT.
 
 ## Installation
 
 ### Prérequis
 
-[...]
+- PHP >= 8.1.0
+- MySQL 
+- Composer
+- Node.js et npm (pour compiler les actifs)
 
-### Étapes
+### Étapes D'installation
 
 1. **Cloner le dépôt**
    ```bash
@@ -20,31 +19,24 @@
    cd project-name
 
    
-### Installer les dépendances
-
+2.### Installer les dépendances
 composer install
 npm install
 
-###Copier le fichier d'exemple d'environnement et faire les modifications de configuration nécessaires dans le fichier .env
-```bash
+3.###Copier le fichier d'exemple d'environnement et faire les modifications de configuration nécessaires dans le fichier .env
 cp .env.example .env
 
-###Générer une nouvelle clé d'application
-```bash
+4.###Générer une nouvelle clé d'application
 php artisan key:generate
 
-###Exécuter les migrations de la base de données
-```bash
+5.###Exécuter les migrations de la base de données
 php artisan migrate
 
-###Créer un lien symbolique pour le stockage
-```bash
+6.###Créer un lien symbolique pour le stockage
 php artisan storage:link
 
-###Compiler les actifs
-```bash
+7.###Compiler les actifs
 npm run dev
 
-###Démarrer le serveur de développement local
-```bash
+8.###Démarrer le serveur de développement local
 php artisan serve
