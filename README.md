@@ -35,15 +35,7 @@ npm install
  ```
 cp .env.example .env
  ```
-*Vous devez ajouter un mot de passe root au fichier .env, sinon vous ne pourrez pas vous connecter.*
- ```
-DB_CONNECTION=mysql
-DB_HOST=localhost
-DB_PORT=3306
-DB_DATABASE=YourDatabase
-DB_USERNAME=root
-DB_PASSWORD=root
- ```
+**Assurer vous d'avoir bien configurer la variable d'environment**
 
 4. **Générer une nouvelle clé d'application**
  ```
