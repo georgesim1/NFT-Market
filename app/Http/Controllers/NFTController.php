@@ -79,6 +79,16 @@ class NFTController extends Controller
         
         return redirect()->route('collection')->withSuccess('Successfully purchased the NFT!');
     }
+
+    public function show($index)
+    {
+        try {
+            $nft = Nft::find($index)->toArray();
+            return view('nft', ['nft' => $nft, 'index' => $index]);
+        } catch (\Throwable $th) {
+            abort(404);
+        }
+    }
     public function myNfts()
     {
         $user = auth()->user();

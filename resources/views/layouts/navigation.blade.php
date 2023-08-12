@@ -29,7 +29,7 @@
                  @endif
                  @if(Auth::check() && Auth::user()->usertype == 'admin')
                  <x-nav-link :href="route('nft.create')" :active="request()->routeIs('nft.create')">
-                     {{ __('Create New NFT') }}
+                     {{ __('Ajouter NFT') }}
                  </x-nav-link>
                  @endif
                 <div class="inline-flex items-center text-white pl-5">

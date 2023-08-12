@@ -3,14 +3,14 @@
 @section('content')
 <div class="container mx-auto p-10 flex flex-wrap">
     <div class="w-1/2">
-        <img src="{{url('storage', $nft['image'])}}" alt="{{ $nft['titre'] }}" class="">
+        <img src="{{url('storage', $nft['image'])}}" alt="{{ $nft['titre'] }}" class="h-50 w-50">
     </div>
     <div class="w-1/2 text-white space-y-2 pl-5">
-        <h1 class="text-3xl font-bold mb-4">{{ $nft['titre'] }}</h1>
-        <p>Artist: {{ $nft['artiste'] }}</p>
-        <p>Category: {{ $nft['categorie'] }}</p>
-        <p>Description: {{ $nft['description'] }}</p>
-        <p>Price: {{ $nft['prix'] }} ETH</p>
+        <h1 class="text-5xl font-bold mb-4">{{ $nft['titre'] }}</h1>
+        <p class="text-2xl">Artist: {{ $nft['artiste'] }}</p>
+        <p class="text-2xl">Category: {{ $nft['categorie'] }}</p>
+        <p class="text-2xl">Description: {{ $nft['description'] }}</p>
+        <p class="text-2xl">Price: {{ $nft['prix'] }} ETH</p>
         
         <!-- Checking ownership and user's funds to display the Buy button -->
         @if((!is_null($nft['owner_id']) && auth()->user()->portfolio >= $nft['prix']))

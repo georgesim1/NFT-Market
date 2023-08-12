@@ -43,14 +43,7 @@ Route::post('nft/{index}/purchase', [NFTController::class, 'buy'])->name('nft.pu
 
 Route::post('nft/{index}/sell', [NFTController::class, 'sell'])->name('nft.sell');
 
-Route::get('nft/{index}', function ($index) {
-    try {
-        $nft = Nft::find($index)->toArray();
-        return view('nft', ['nft' => $nft, 'index' => $index]);
-    } catch (\Throwable $th) {
-        abort(404);
-    }
-})->name('nft.show');
+Route::get('nft/{index}', [NFTController::class, 'show'])->name('nft.show');
 
 Route::get('/collection', [NFTController::class, 'myNfts'])->name('collection')->middleware('auth');
 
