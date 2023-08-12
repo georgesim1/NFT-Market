@@ -36,8 +36,8 @@ Password: password
 
 1. **Cloner le dépôt**
 ```
-git clone https://github.com/username/project-name.git
-cd project-name
+git clone git@github.com:georgesim1/Projet-2-NFT-Market.git
+cd NFT-Market
 ```
    
 2. **Installer les dépendances**
