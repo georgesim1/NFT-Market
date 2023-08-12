@@ -13,6 +13,7 @@
         <p class="text-2xl">Price: {{ $nft['prix'] }} ETH</p>
         
         <!-- Checking ownership and user's funds to display the Buy button -->
+        @if (auth()->user())
         @if((!is_null($nft['owner_id']) && auth()->user()->portfolio >= $nft['prix']))
         <form action="{{ route('nft.purchase', $nft['id']) }}" method="POST">
             @csrf
