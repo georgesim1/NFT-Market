@@ -35,32 +35,40 @@ npm install
  ```
 cp .env.example .env
  ```
+*Vous devez ajouter un mot de passe root au fichier .env, sinon vous ne pourrez pas vous connecter.*
+ ```
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3306
+DB_DATABASE=YourDatabase
+DB_USERNAME=root
+DB_PASSWORD=root
+ ```
 
 4. **Générer une nouvelle clé d'application**
  ```
 php artisan key:generate
  ```
-
 5. **Exécuter les migrations de la base de données**
  ```
-php artisan migrate
+php artisan migrate 
  ```
-
+5.1 **Exécuter la commande suivante pour seeder la base de données**
+ ```
+php artisan migrate --seed
+ ```
 6. **Créer un lien symbolique pour le stockage**
  ```
 php artisan storage:link
  ```
-
 7. **Compiler les actifs**
  ```
 npm run dev
  ```
-
 8. **Démarrer le serveur de développement local**
  ```
 php artisan serve
  ```
-
 <!-- CONTACT -->
 ## Contact
 
