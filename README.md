@@ -35,7 +35,7 @@ npm install
  ```
 cp .env.example .env
  ```
-**You need to add a root password to the .env file otherwise you won't be able to log in*
+*Vous devez ajouter un mot de passe root au fichier .env, sinon vous ne pourrez pas vous connecter.*
  ```
 DB_CONNECTION=mysql
 DB_HOST=localhost
